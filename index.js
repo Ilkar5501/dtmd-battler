@@ -15,8 +15,13 @@ import { initDb, getUserInvIds, addCard, getCard, getInventory } from "./db.js";
 // --------------------
 // Settings
 // --------------------
+// For TESTING: ignore channel restriction + always attempt spawn after cooldown.
+// Flip these back later.
+const ENFORCE_SPAWN_CHANNEL = false; // <-- set true later
 const SPAWN_CHANNEL_ID = "1429875206574313624";
+
 const SPAWN_COOLDOWN_MS = 30_000;
+const FORCE_SPAWN_FOR_TESTING = true; // <-- set false later if you want spawn chance
 
 // In-memory spawn state (one spawn at a time)
 let lastSpawnAt = 0;
@@ -63,7 +68,17 @@ client.once(Events.ClientReady, async () => {
 client.on(Events.MessageCreate, async (message) => {
   try {
     if (message.author.bot) return;
-    if (message.channelId !== SPAWN_CHANNEL_ID) return;
+
+    // Debug: confirms the bot sees messages in THIS channel
+    if (message.content === "!debug") {
+      await message.reply(
+        `✅ I see messages here.\nchannelId=${message.channelId}\nguildId=${message.guildId}\nENFORCE_SPAWN_CHANNEL=${ENFORCE_SPAWN_CHANNEL}\nSPAWN_CHANNEL_ID=${SPAWN_CHANNEL_ID}`
+      );
+      return;
+    }
+
+    // Optional channel restriction (disabled for testing)
+    if (ENFORCE_SPAWN_CHANNEL && message.channelId !== SPAWN_CHANNEL_ID) return;
 
     const now = Date.now();
 
@@ -72,6 +87,12 @@ client.on(Events.MessageCreate, async (message) => {
 
     // only allow 1 active spawn at a time until it is claimed
     if (activeSpawn && !activeSpawn.claimed) return;
+
+    // For testing, always spawn after cooldown.
+    // Later you can replace this with a chance roll.
+    if (!FORCE_SPAWN_FOR_TESTING) {
+      return;
+    }
 
     // pick random character (1/22 assuming characters.length === 22)
     const picked = characters[Math.floor(Math.random() * characters.length)];
@@ -149,6 +170,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
     // --------------------
     if (!interaction.isChatInputCommand()) return;
 
+    if (interaction.commandName === "ping") {
+      return interaction.reply({ content: "🏓 Pong!", ephemeral: true });
+    }
+
     if (interaction.commandName === "inventory") {
       const rows = await getInventory(interaction.user.id);
 
@@ -193,18 +218,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
         await interaction.reply({ content: "Something went wrong.", ephemeral: true });
       } catch {}
     }
-  }
-});
-
-import { Events } from "discord.js";
-
-client.on(Events.MessageCreate, async (message) => {
-  if (message.author.bot) return;
-
-  if (message.content === "!debug") {
-    await message.reply(
-      `✅ I saw your message.\nchannelId=${message.channelId}\nguildId=${message.guildId}`
-    );
   }
 });
 
