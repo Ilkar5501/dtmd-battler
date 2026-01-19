@@ -4,7 +4,7 @@ export default [
     key: "abdullah",
     name: "Abdullah",
     imageUrl:
-      "https://media.discordapp.net/attachments/1459562950384685258/1462589395902267482/M_Abdullah.png?ex=696ebe05&is=696d6c85&hm=60e01db49bc7380c75ea9bc9880cf47f3121f489003e0044fa050171d5193551&=&format=webp&quality=lossless&width=920&height=920",
+      "https://media.discordapp.net/attachments/1459562950384685258/1462885818103234611/M_Abdullah.png?ex=696fd216&is=696e8096&hm=00a22b9697f1b0c9d266e229936aaab77e624379cb32ec8421f62090ec466afc&=&format=webp&quality=lossless&width=920&height=920",
   },
   {
     key: "berserk",
@@ -16,7 +16,7 @@ export default [
     key: "blutsx",
     name: "Blutsx",
     imageUrl:
-      "https://media.discordapp.net/attachments/1459562950384685258/1462589397257158757/M_Blutsx.png?ex=696ebe05&is=696d6c85&hm=563cce31cc66f7d95949390d6916216d499657d9833fd4f7ed9ddeb1d53f2791&=&format=webp&quality=lossless&width=920&height=920",
+      "https://media.discordapp.net/attachments/1459562950384685258/1462885818690441297/M_Blutsx.jpg?ex=696fd216&is=696e8096&hm=75fe5dfe761f173271052805062740f583a228faff0ec6c42c9f905c6dbc5534&=&format=webp&width=750&height=750",
   },
   {
     key: "cryselle",
@@ -112,7 +112,7 @@ export default [
     key: "shmeargle",
     name: "Shmeargle",
     imageUrl:
-      "https://media.discordapp.net/attachments/1459562950384685258/1462589440336597126/W_Shmeargle.png?ex=696ebe10&is=696d6c90&hm=7b7d08dee30c0697fa9500ba880e1244b1490343f5f5288e13b695499222c45a&=&format=webp&quality=lossless&width=920&height=920",
+      "https://media.discordapp.net/attachments/1459562950384685258/1462868729875529770/W_Shmeargle.jpg?ex=696fc22b&is=696e70ab&hm=8031f9a5132720c4196bb79b3ffcc838aa11b95a636574257f33fcc6dc53b11b&=&format=webp&width=920&height=920",
   },
   {
     key: "starolyz",
@@ -125,6 +125,12 @@ export default [
     name: "Stitch",
     imageUrl:
       "https://media.discordapp.net/attachments/1459562950384685258/1462589455998124167/W_Stitch.png?ex=696ebe13&is=696d6c93&hm=bda8504d9f428d68e7c4429b87c7eae4187b1d6d1390b935e5906c820c6252cb&=&format=webp&quality=lossless&width=920&height=920",
+  },
+   {
+    key: "viri",
+    name: "Viri",
+    imageUrl:
+      "https://media.discordapp.net/attachments/1459562950384685258/1462868730156552243/W_Viri.png?ex=696fc22c&is=696e70ac&hm=bedeebc55edad67e25e68148d7b69998b621cde1a3a67df73a0528906f38866f&=&format=webp&quality=lossless&width=750&height=750",
   },
   {
     key: "wabbit",
