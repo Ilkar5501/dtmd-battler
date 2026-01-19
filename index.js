@@ -196,4 +196,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
+import { Events } from "discord.js";
+
+client.on(Events.MessageCreate, async (message) => {
+  if (message.author.bot) return;
+
+  if (message.content === "!debug") {
+    await message.reply(
+      `✅ I saw your message.\nchannelId=${message.channelId}\nguildId=${message.guildId}`
+    );
+  }
+});
+
 client.login(process.env.DISCORD_TOKEN);
