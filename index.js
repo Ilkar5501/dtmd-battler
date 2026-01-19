@@ -10,7 +10,7 @@ import {
 } from "discord.js";
 
 import characters from "./characters.js";
-import { initDb, getUserInvIds, addCard, getInventory, getCard } from "./db.js";
+import { initDb, getUserInvIds, addCard, getCard, getInventory } from "./db.js";
 
 // --------------------
 // Settings

@@ -1,12 +1,16 @@
-// db.js
-const { Pool } = require("pg");
+// db.js (ESM)
+import pg from "pg";
 
-const pool = new Pool({
+const { Pool } = pg;
+
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL?.includes("koyeb") ? { rejectUnauthorized: false } : false,
+  ssl: process.env.DATABASE_URL?.includes("koyeb")
+    ? { rejectUnauthorized: false }
+    : false,
 });
 
-async function initDb() {
+export async function initDb() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS cards (
       user_id TEXT NOT NULL,
@@ -18,22 +22,22 @@ async function initDb() {
   `);
 }
 
-async function getUserInvIds(userId) {
+export async function getUserInvIds(userId) {
   const res = await pool.query(
     `SELECT inv_id FROM cards WHERE user_id = $1 ORDER BY inv_id ASC`,
     [String(userId)]
   );
-  return res.rows.map(r => r.inv_id);
+  return res.rows.map((r) => r.inv_id);
 }
 
-async function addCard(userId, invId, characterKey) {
+export async function addCard(userId, invId, characterKey) {
   await pool.query(
     `INSERT INTO cards (user_id, inv_id, character_key) VALUES ($1, $2, $3)`,
     [String(userId), invId, characterKey]
   );
 }
 
-async function getCard(userId, invId) {
+export async function getCard(userId, invId) {
   const res = await pool.query(
     `SELECT * FROM cards WHERE user_id = $1 AND inv_id = $2 LIMIT 1`,
     [String(userId), invId]
@@ -41,19 +45,10 @@ async function getCard(userId, invId) {
   return res.rows[0] || null;
 }
 
-async function getInventory(userId) {
+export async function getInventory(userId) {
   const res = await pool.query(
     `SELECT inv_id, character_key, claimed_at FROM cards WHERE user_id = $1 ORDER BY inv_id ASC`,
     [String(userId)]
   );
   return res.rows;
 }
-
-module.exports = {
-  pool,
-  initDb,
-  getUserInvIds,
-  addCard,
-  getCard,
-  getInventory,
-};
